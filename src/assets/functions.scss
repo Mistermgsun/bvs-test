@@ -1,0 +1,16 @@
+/* Funzione per la fluid typography */
+@function responsive-size($max-font, $min-font, $page-width-val: var(--page-width-val)) {
+  @return clamp(
+    #{$min-font}rem,
+    calc(
+      #{$min-font}rem + (#{$max-font} - #{$min-font}) *
+        ((100vw - var(--min-page-width)) / ($page-width-val - var(--min-page-width-val)))
+    ),
+    #{$max-font}rem
+  );
+}
+
+// /* Funzione per Grid dinamico */
+@function grid($columns: 6) {
+  @return repeat($columns, minmax(0, 1fr));
+}

@@ -1,0 +1,145 @@
+@import './functions.scss';
+@import './font.scss';
+
+:root {
+  /* GLOBAL */
+  --page-width: 170rem;
+  --page-width-val: 170;
+  --min-page-width: 32rem;
+  --page-width-val-m: 99.2;
+  --min-page-width-val: 32;
+
+  /* SPACING */
+  --padding-horizontal: #{responsive-size(3, 1)};
+  --padding-vertical: #{responsive-size(10, 3.2)};
+
+  /* FONT */
+  --primary-font: 'Roboto', sans-serif;
+
+  /* COLORS */
+  --primary-color: white;
+  --secondary-color: black;
+  --third-color: #4f4f4f;
+  --fourth-color: #ffdb01;
+  --fifth-color: #242424;
+  --seventh-color: #292d32;
+  --eight-color: #f5f7fa;
+  --ninth-color: #4d545a;
+  --tenth-color: #626c76;
+  --eleventh-color: #4fbf65;
+  --twelfth-color: #6c70dc;
+  --thirteenth-color: #dee6f0;
+  --fourtheenth-color: #e3eaf3;
+  --fiftheenth-color: #8f9ca7;
+  --sixtheenth-color: #f7f8fb;
+
+  /* FORM BOOKING */
+  --booking-form-width: 1000px;
+  --booking-form-height: 600px;
+  --booking-form-header-height: #{responsive-size(5.9, 4.5)};
+  --booking-form-navigation-height: 65px;
+  --booking-form-content-height: 512px;
+
+  /* DATE PICKER */
+  --date-cell-height: #{responsive-size(6, 5)};
+
+  /* DAY PICKER */
+  --day-time-column-width: 5rem;
+  --day-time-cell-height: #{responsive-size(6, 5)};
+}
+
+/* Per rendere 1 rem = 10px */
+html {
+  font-size: 62.5%;
+}
+
+body {
+  margin: 0; /* Imposta il margin del body a 0 */
+  font-family: var(--primary-font);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+li,
+button {
+  font-family: var(--primary-font);
+  margin: 0;
+}
+
+p,
+li {
+  font-size: responsive-size(1.6, 1.4);
+}
+
+p {
+  line-height: 1.5;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+section,
+footer,
+.header {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.inner-content {
+  box-sizing: border-box;
+  max-width: var(--page-width);
+  width: 100%;
+  padding-left: var(--padding-horizontal);
+  padding-right: var(--padding-horizontal);
+  padding-top: var(--padding-vertical);
+  padding-bottom: var(--padding-vertical);
+  display: flex;
+  flex-direction: column;
+}
+
+.inner-content-fullwidth {
+  width: 100%;
+}
+
+.inner-content-centered {
+  display: flex;
+  justify-content: center;
+}
+
+.default-p-vertical {
+  padding-top: var(--padding-vertical);
+  padding-bottom: var(--padding-vertical);
+}
+
+.default-p-horizontal {
+  padding-left: var(--padding-horizontal);
+  padding-right: var(--padding-horizontal);
+}
+
+.bg-primary {
+  background-color: var(--primary-color);
+}
+
+.bg-secondary {
+  background-color: var(--secondary-color);
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: grid(2);
+  width: 100%;
+
+  .column1,
+  .column2 {
+    width: 100%;
+  }
+}

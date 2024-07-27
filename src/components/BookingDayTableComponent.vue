@@ -26,14 +26,19 @@ export default {
     return {
       currentDate: new Date(this.selectedDay.year, this.selectedDay.month, this.selectedDay.day),
       currentTime: null,
-      fakeTime: '8:00', // Default null - Altrimenti impostare orario fittizio, esempio '15:30'
-      useFakeTime: true // Default false - Altrimenti per avere orario fittizio impostare a true
+      fakeTime: '18:35', // Default null - Altrimenti impostare orario fittizio, esempio '15:30'
+      useFakeTime: true, // Default false - Altrimenti per avere orario fittizio impostare a true
+      cellHeight: 50 // Valore predefinito di cellHeight, può essere cambiato
     }
   },
   mounted() {
     this.updateTime()
     setInterval(this.updateTime, 60000)
-    this.updateIndicatorPosition() // Assicurati che l'indicatore sia posizionato correttamente all'avvio
+    this.calculateCellHeight() // Calcola l'altezza della cella durante il montaggio del componente
+    window.addEventListener('resize', this.calculateCellHeight) // Ricalcola l'altezza delle celle al ridimensionamento della finestra
+  },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.calculateCellHeight) // Rimuovi l'evento al momento della distruzione del componente
   },
   computed: {
     hours() {
@@ -48,16 +53,28 @@ export default {
         const [startHour, startMinute] = event.start.split(':').map(Number)
         const [endHour, endMinute] = event.end.split(':').map(Number)
 
-        const duration = endHour + endMinute / 60 - (startHour + startMinute / 60)
-        const startTop = (startHour - this.startHour) * 60 + startMinute
+        const duration = this.calculateDuration(startHour, startMinute, endHour, endMinute)
+        const durationHours = duration / 60
+        const durationHeight = (duration / 60) * this.cellHeight
+        const roundedDurationHours = Math.floor(durationHours)
 
-        const hourOffset = Math.floor(startTop / 60)
-        const adjustedTop = startTop + hourOffset
+        const startTop =
+          (startHour - this.startHour) * this.cellHeight + (startMinute / 60) * this.cellHeight
+
+        console.log('startHour', startHour)
+        console.log('endHour', endHour)
+        console.log('startMinute', startMinute)
+        console.log('endMinute', endMinute)
+        console.log('duration', duration)
+        console.log('durationHours', durationHours)
+        console.log('durationHeight', durationHeight)
+        console.log('roundedDurationHours', roundedDurationHours)
+        console.log('')
 
         return {
           ...event,
-          top: adjustedTop,
-          height: duration * 60 + duration
+          top: startTop,
+          height: durationHeight
         }
       })
     }
@@ -84,36 +101,26 @@ export default {
         return 0
       }
 
-      // Trova il primo elemento con la classe day-picker-table__cell
-      const cellElement = this.$el.querySelector('.day-picker-table__cell')
-      if (!cellElement) {
-        console.error('Impossibile trovare un elemento con la classe day-picker-table__cell')
-        return 0
-      }
-
-      // Ottieni l'altezza dell'elemento usando getBoundingClientRect
-      const cellHeight = cellElement.getBoundingClientRect().height
+      const cellHeight = this.cellHeight
 
       const elapsedHours = hours - this.startHour + minutes / 60
       const percentage = elapsedHours / totalHours
       const totalHeight = totalHours * cellHeight
       const topPosition = percentage * totalHeight
 
-      // Aggiungi i console log
-      console.log('cellHeight:', cellHeight)
-      console.log('hours:', hours)
-      console.log('this.startHour:', this.startHour)
-      console.log('minutes:', minutes)
-      console.log('elapsedHours:', elapsedHours)
-      console.log('percentage:', percentage)
-      console.log('totalHeight:', totalHeight)
-      console.log('topPosition:', topPosition)
-
       return topPosition
     },
     updateIndicatorPosition() {
-      // Forza Vue a ricalcolare lo stile dell'indicatore
       this.$forceUpdate()
+    },
+    calculateCellHeight() {
+      this.$nextTick(() => {
+        const cellElement = this.$el.querySelector('.day-picker-table__cell')
+        if (cellElement) {
+          this.cellHeight = cellElement.getBoundingClientRect().height
+          this.updateIndicatorPosition()
+        }
+      })
     },
     prevDay() {
       const prevDate = new Date(this.currentDate)
@@ -152,6 +159,12 @@ export default {
         (event) =>
           this.validateEvent(event) && event.date === this.formatDateForComparison(this.currentDate)
       )
+    },
+    calculateDuration(startHour, startMinute, endHour, endMinute) {
+      const startTotalMinutes = startHour * 60 + startMinute
+      const endTotalMinutes = endHour * 60 + endMinute
+      const durationInMinutes = endTotalMinutes - startTotalMinutes
+      return durationInMinutes
     }
   }
 }
@@ -206,7 +219,7 @@ export default {
               class="day-picker-table__event"
               :style="{ top: event.top + 'px', height: event.height + 'px' }"
             >
-              <p class="day-picker-table__event__name">{{ event.user }}</p>
+              <p class="day-picker-table__event__name">{{ event.nome }}</p>
               <p class="day-picker-table__event__time">{{ event.start }} - {{ event.end }}</p>
             </div>
           </div>
@@ -284,7 +297,6 @@ export default {
   }
 
   &__content {
-    // border-top: 1px solid #00000014;
     display: flex;
     position: relative;
   }
@@ -345,14 +357,19 @@ export default {
     &__time {
       font-size: 1rem;
     }
+
+    &__duration {
+      font-size: 1rem;
+      margin-top: 5px;
+    }
   }
 
   &__indicator {
     position: absolute;
-    width: calc(100% - 5rem);
+    width: calc(100% - var(--day-time-column-width));
     background-color: red;
     height: 1px;
-    left: 5.1rem;
+    left: calc(var(--day-time-column-width) + 1px);
 
     &::before {
       content: '';

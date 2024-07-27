@@ -59,11 +59,54 @@ export default {
     return {
       currentTab: 'Prenota',
       events: [
-        { user: 'Mario Rossi', start: '9:00', end: '12:00', field: 1, date: '2024-07-26' },
-        { user: 'Lucia Rosaire', start: '13:00', end: '15:00', field: 2, date: '2024-07-26' },
-        { user: 'Martina Giorla', start: '15:00', end: '16:30', field: 2, date: '2024-07-26' },
-        { user: 'Jacopo de Gattis', start: '16:45', end: '18:00', field: 2, date: '2024-07-27' },
-        { user: 'Luigi Scarciglia', start: '20:45', end: '23:00', field: 3, date: '2024-07-27' }
+        {
+          nome: 'Mario',
+          cognome: 'Rossi',
+          start: '9:00',
+          end: '12:00',
+          field: 1,
+          date: '2024-07-26'
+        },
+        {
+          nome: 'Lucia',
+          cognome: 'Rosaire',
+          start: '13:00',
+          end: '15:00',
+          field: 2,
+          date: '2024-07-26'
+        },
+        {
+          nome: 'Martina',
+          cognome: 'Giorla',
+          start: '15:00',
+          end: '16:30',
+          field: 2,
+          date: '2024-07-26'
+        },
+        {
+          nome: 'Jacopo',
+          cognome: 'de Gattis',
+          start: '16:00',
+          end: '18:00',
+          field: 2,
+          date: '2024-07-27'
+        },
+        {
+          nome: 'Luigi',
+          cognome: 'Scarciglia',
+          start: '20:45',
+          end: '23:00',
+          field: 3,
+          date: '2024-07-27'
+        },
+        {
+          nome: 'Mirko',
+          cognome: 'Manella',
+          start: '18:35',
+          end: '20:55',
+          field: 5,
+          date: '2024-07-27'
+        }
       ],
       startHour: 9,
       endHour: 23,

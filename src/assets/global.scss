@@ -44,7 +44,7 @@
   --date-cell-height: #{responsive-size(6, 5)};
 
   /* DAY PICKER */
-  --day-time-column-width: 5rem;
+  --day-time-column-width: #{responsive-size(5, 3.5)};
   --day-time-cell-height: #{responsive-size(6, 5)};
 }
 

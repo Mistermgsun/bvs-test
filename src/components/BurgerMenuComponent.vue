@@ -16,19 +16,18 @@ const handleClick = () => {
 @import '../assets/functions.scss';
 
 .hamburger-box {
-  width: 40px;
-  height: 24px;
+  width: var(--burder-width);
+  height: var(--burger-height);
   transition-duration: 0.4s;
   opacity: 0;
   display: none;
   position: relative;
-  scale: 0.8;
 
   &__line,
   &::before,
   &::after {
     content: '';
-    height: 2px;
+    height: var(--burger-line-height);
     background-color: var(--primary-color);
     width: 100%;
     transition-duration: 400ms;
@@ -41,16 +40,16 @@ const handleClick = () => {
   }
 
   &::before {
-    top: 10px;
+    top: calc(100% / 2);
   }
 
   &::after {
-    top: 20px;
+    top: 100%;
   }
 
   &.open {
     .hamburger-box__line {
-      transform: translate3d(0, 10px, 0) rotate(-45deg);
+      transform: translate3d(0, calc(var(--burger-height) / 2), 0) rotate(-45deg);
     }
 
     &::before {
@@ -58,7 +57,7 @@ const handleClick = () => {
     }
 
     &::after {
-      transform: translate3d(0, -10px, 0) rotate(45deg);
+      transform: translate3d(0, calc(-1 * (var(--burger-height) / 2)), 0) rotate(45deg);
     }
   }
 }

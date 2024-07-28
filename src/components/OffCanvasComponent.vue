@@ -9,20 +9,30 @@ watch(isOpen, (newVal) => {
     if (newVal) {
       offcanvasMenu.value.classList.remove('close')
       offcanvasMenu.value.classList.add('open')
+      document.body.classList.add('no-scroll') // Disabilita lo scroll
     } else {
       offcanvasMenu.value.classList.remove('open')
       offcanvasMenu.value.classList.add('close')
+      document.body.classList.remove('no-scroll') // Abilita lo scroll
     }
   }
 })
 </script>
 
 <template>
-  <div ref="offcanvasMenu" class="offcanvas-menu"></div>
+  <div ref="offcanvasMenu" class="offcanvas">
+    <div class="offcanvas__subcontainer">
+      <ul class="offcanvas__menu">
+        <li>Home</li>
+        <li>Chi siamo</li>
+        <li>Eventi</li>
+      </ul>
+    </div>
+  </div>
 </template>
 
 <style scoped lang="scss">
-.offcanvas-menu {
+.offcanvas {
   height: 100%;
   position: fixed;
   top: 0;
@@ -33,6 +43,28 @@ watch(isOpen, (newVal) => {
   visibility: hidden;
   transition: visibility 0.6s step-end; /* Transizione per visibilità */
   animation: swipeOut 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+
+  &__subcontainer {
+    height: 100%;
+    width: 100%;
+    padding-left: var(--padding-horizontal);
+    padding-right: var(--padding-horizontal);
+    padding-top: var(--header-height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__menu {
+    transform: translateY(-50%);
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    li {
+      color: white;
+    }
+  }
 
   &.open {
     visibility: visible;

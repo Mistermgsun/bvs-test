@@ -1,8 +1,19 @@
-<script></script>
+<script>
+import TestResponsiveTable from '../components/TestResponsiveTable.vue'
+
+export default {
+  components: {
+    TestResponsiveTable
+  }
+}
+</script>
 
 <template>
   <section>
-    <div class="inner-content"><p>Prenota</p></div>
+    <div class="inner-content">
+      <!-- <p>Prenota</p> -->
+      <TestResponsiveTable />
+    </div>
   </section>
 </template>
 

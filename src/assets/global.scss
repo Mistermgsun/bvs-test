@@ -33,6 +33,14 @@
   --fiftheenth-color: #8f9ca7;
   --sixtheenth-color: #f7f8fb;
 
+  /* HEADER */
+  --header-height: #{responsive-size(8, 5)};
+
+  /* BURGER MENU */
+  --burder-width: #{responsive-size(4, 3.2)};
+  --burger-height: #{responsive-size(2, 1.4)};
+  --burger-line-height: 2px;
+
   /* FORM BOOKING */
   --booking-form-width: 1000px;
   --booking-form-height: 600px;
@@ -46,6 +54,10 @@
   /* DAY PICKER */
   --day-time-column-width: #{responsive-size(5, 3.5)};
   --day-time-cell-height: #{responsive-size(6, 5)};
+
+  /*TEST TABLE RESPONSIVE PAGE BOOKING*/
+  --table-min-width: 400px;
+  --table-padding: 1rem;
 }
 
 /* Per rendere 1 rem = 10px */
@@ -142,4 +154,9 @@ footer,
   .column2 {
     width: 100%;
   }
+}
+
+/* Stile per disabilitare lo scroll */
+.no-scroll {
+  overflow: hidden;
 }

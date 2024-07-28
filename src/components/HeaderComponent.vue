@@ -68,7 +68,7 @@ export default {
 
 .header {
   background-color: var(--fifth-color);
-  height: responsive-size(8, 6);
+  height: var(--header-height);
   position: relative;
   z-index: 999;
 
